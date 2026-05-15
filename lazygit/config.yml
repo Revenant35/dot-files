@@ -1,0 +1,37 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
+
+gui:
+  nerdFontsVersion: "3"
+  customIcons:
+    filenames:
+      "README.md":
+        icon: "\ueda4"
+        color: "a8a8a8"
+      "gradlew":
+        icon: "\ue7f2"
+        color: "#9300c4"
+      "gradlew.bat":
+        icon: "\ue7f2"
+        color: "#9300c4"
+      ".gitignore":
+        icon: "\ue702"
+        color: "#a8a8a8"
+    extensions:
+      ".kt":
+        icon: "\ue81b"
+        color: "#cc00cc"
+      ".gradle":
+        icon: "\ue7f2"
+        color: "#00a0c4"
+      ".gradle.kts":
+        icon: "\ue7f2"
+        color: "#0055c4"
+      ".pro":
+        icon: "\ue7a1"
+        color: "#c40007"
+      ".nix":
+        icon: "\ue843"
+        color: "#2651c7"
+      ".yml":
+        icon: "\ue6a8"
+        color: "#ebb434"

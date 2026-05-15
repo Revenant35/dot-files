@@ -1,0 +1,2 @@
+--target=~/.ssh
+--ignore=.stowrc

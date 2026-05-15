@@ -27,4 +27,7 @@ if status is-interactive
 
   # -- fastfetch --
   abbr -a ff fastfetch
+
+  # -- age --
+  abbr -a ssh-unlock "age -d -o ~/.ssh/id_ed25519 id_ed25519.age"
 end

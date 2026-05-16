@@ -9,7 +9,7 @@
       "ghostty"
       "obsidian"
       "spotify"
-      "zen-browser"
+      "zen"
     ];
   };
 }

@@ -7,6 +7,7 @@
   ];
 
   nixpkgs.overlays = [ inputs.claude-code.overlays.default ];
+  nixpkgs.config.allowUnfree = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -36,7 +37,7 @@
 
     # Node.js
     nodejs
-    nodePackages.pnpm
+    pnpm
 
     # Fonts
     nerd-fonts.jetbrains-mono

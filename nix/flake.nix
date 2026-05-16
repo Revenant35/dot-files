@@ -13,10 +13,6 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-
-    claude-code = {
-      url = "github:sadjow/claude-code-nix";
-    };
   };
 
   outputs = inputs:

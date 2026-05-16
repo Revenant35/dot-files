@@ -6,7 +6,6 @@
     ../../modules/darwin/system-preferences.nix
   ];
 
-  nixpkgs.overlays = [ inputs.claude-code.overlays.default ];
   nixpkgs.config.allowUnfree = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -43,7 +42,6 @@
     nerd-fonts.jetbrains-mono
 
     # Apps
-    claude-code
     opencode
   ];
 

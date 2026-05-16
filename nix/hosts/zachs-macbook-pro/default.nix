@@ -43,6 +43,7 @@
 
     # Apps
     opencode
+    vscode
   ];
 
   programs.fish.enable = true;

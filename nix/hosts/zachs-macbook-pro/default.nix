@@ -43,6 +43,7 @@
 
     # Apps
     claude-code
+    opencode
   ];
 
   programs.fish.enable = true;

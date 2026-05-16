@@ -1,6 +1,5 @@
 shell-integration = fish
 command = /run/current-system/sw/bin/fish
-custom-shader = shaders/cineShader-Lava.glsl
 font-family = JetBrains Mono
 mouse-hide-while-typing = true
 macos-option-as-alt = true

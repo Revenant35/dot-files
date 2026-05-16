@@ -1,0 +1,20 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "moonshotai/kimi-k2.6",
+  "small_model": "moonshotai/kimi-k2.5",
+  "autoupdate": "notify",
+  "shell": "fish",
+  "permission": {
+    "edit": "ask",
+    "bash": "ask",
+    "question": "allow",
+    "read": "allow",
+    "grep": "allow",
+    "glob": "allow",
+    "lsp": "allow",
+    "skill": "allow",
+    "todowrite": "allow",
+    "webfetch": "allow",
+    "websearch": "deny",
+  }
+}

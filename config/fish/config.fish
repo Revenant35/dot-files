@@ -5,6 +5,12 @@ if test -x /opt/homebrew/bin/brew
   eval (/opt/homebrew/bin/brew shellenv)
 end
 
+# -- .NET --
+if test -d /opt/homebrew/opt/dotnet@8
+  fish_add_path /opt/homebrew/opt/dotnet@8/bin
+  set -gx DOTNET_ROOT /opt/homebrew/opt/dotnet@8/libexec
+end
+
 if status is-interactive
 # Commands to run in interactive sessions can go here
 

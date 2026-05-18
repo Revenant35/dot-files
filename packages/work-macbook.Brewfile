@@ -2,6 +2,7 @@
 
 # CLI tools
 cask "claude-code"
+brew "dotnet@8"
 
 # GUI applications
 cask "android-studio"

@@ -25,19 +25,22 @@ case "$CONFIG" in
     PACKAGE_FILE="${REPO_ROOT}/packages/home-macbook.Brewfile"
     PACKAGE_MANAGER="brew"
     SSH_DIR="${REPO_ROOT}/ssh/home"
+    GIT_EMAIL="bbrown64506@gmail.com"
     ;;
   work-macbook)
     PACKAGE_FILE="${REPO_ROOT}/packages/work-macbook.Brewfile"
     PACKAGE_MANAGER="brew"
     SSH_DIR="${REPO_ROOT}/ssh/work"
+    GIT_EMAIL="zacharyc.brown@veteransunited.com"
     ;;
   home-desktop)
     PACKAGE_FILE="${REPO_ROOT}/packages/home-desktop.dnf.txt"
     PACKAGE_MANAGER="dnf"
     SSH_DIR="${REPO_ROOT}/ssh/home"
+    GIT_EMAIL="bbrown64506@gmail.com"
     ;;
   *)
-    echo "Usage: $0 <config> [packages|ssh|config|shell]"
+    echo "Usage: $0 <config> [packages|ssh|config|git|shell]"
     echo ""
     echo "Configurations:"
     echo "  home-macbook   macOS laptop (personal)"
@@ -68,6 +71,15 @@ install_config() {
   echo "=== Stowing config files ==="
   require stow
   (cd "${REPO_ROOT}/config" && stow .)
+}
+
+install_git() {
+  echo "=== Writing ~/.config/git/config.local ==="
+  mkdir -p ~/.config/git
+  cat > ~/.config/git/config.local <<EOF
+[user]
+    email = ${GIT_EMAIL}
+EOF
 }
 
 decrypt_ssh() {
@@ -113,17 +125,21 @@ case "$SUBSYSTEM" in
   config)
     install_config
     ;;
+  git)
+    install_git
+    ;;
   shell)
     add_shell fish
     ;;
   "")
     install_packages
     install_config
+    install_git
     install_ssh
     add_shell fish
     ;;
   *)
-    echo "Usage: $0 <config> [packages|ssh|config|shell]"
+    echo "Usage: $0 <config> [packages|ssh|config|git|shell]"
     exit 1
     ;;
 esac

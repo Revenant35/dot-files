@@ -35,7 +35,7 @@ case "$CONFIG" in
     SSH_DIR="${REPO_ROOT}/ssh/home"
     ;;
   *)
-    echo "Usage: $0 <config> [packages|ssh|config|shell]"
+    echo "Usage: $0 <config> [packages|ssh|config|git|shell]"
     echo ""
     echo "Configurations:"
     echo "  home-macbook   macOS laptop (personal)"
@@ -65,6 +65,11 @@ uninstall_config() {
   echo "=== Unstowing config files ==="
   require stow
   (cd "${REPO_ROOT}/config" && stow -D .)
+}
+
+uninstall_git() {
+  echo "=== Removing ~/.config/git/config.local ==="
+  rm -f ~/.config/git/config.local
 }
 
 uninstall_ssh() {
@@ -99,17 +104,21 @@ case "$SUBSYSTEM" in
   config)
     uninstall_config
     ;;
+  git)
+    uninstall_git
+    ;;
   shell)
     remove_shell fish
     ;;
   "")
     remove_shell fish
     uninstall_ssh
+    uninstall_git
     uninstall_config
     uninstall_packages
     ;;
   *)
-    echo "Usage: $0 <config> [packages|ssh|config|shell]"
+    echo "Usage: $0 <config> [packages|ssh|config|git|shell]"
     exit 1
     ;;
 esac

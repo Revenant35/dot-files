@@ -1,9 +1,11 @@
 [init]
     defaultBranch = main
 
+[include]
+    path = ~/.config/git/config.local
+
 [user]
     name = Zach Brown
-    email = bbrown64506@gmail.com
     signingkey = ~/.ssh/id_ed25519.pub
 
 [gpg]

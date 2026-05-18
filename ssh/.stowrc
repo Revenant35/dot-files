@@ -1,2 +1,3 @@
 --target=~/.ssh
 --ignore=.stowrc
+--ignore=id_ed25519.age

@@ -1,10 +1,17 @@
 set fish_greeting
 
+# Add Homebrew to PATH
+if test -x /opt/homebrew/bin/brew
+  eval (/opt/homebrew/bin/brew shellenv)
+end
+
 if status is-interactive
 # Commands to run in interactive sessions can go here
 
   # Clean up old abbreviations that were migrated to aliases
-  abbr --erase --all
+  for a in (abbr --list)
+      abbr --erase $a
+  end
 
   # -- Starship --
   starship init fish | source

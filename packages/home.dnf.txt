@@ -1,0 +1,28 @@
+# Fedora / dnf packages roughly equivalent to the nix-darwin systemPackages
+# Install with: xargs -a packages.dnf.txt sudo dnf install -y
+
+age
+bat
+code
+eza
+fastfetch
+fd-find
+ffmpeg
+fish
+fzf
+git-delta
+gh
+htop
+jq
+lazygit
+nodejs
+pnpm
+ripgrep
+starship
+stow
+tealdeer
+tree
+zoxide
+
+# Note: nerd-fonts.jetbrains-mono is not available in standard Fedora repos.
+# Install manually from https://github.com/ryanoasis/nerd-fonts or a COPR.

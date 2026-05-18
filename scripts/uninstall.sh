@@ -13,21 +13,50 @@ require() {
   command -v "$1" >/dev/null 2>&1 || { echo "Error: '$1' is not installed."; exit 1; }
 }
 
+# --- Configuration ---
+
+CONFIG="${1:-}"
+SUBSYSTEM="${2:-}"
+
+case "$CONFIG" in
+  home-macbook)
+    PACKAGE_FILE="${REPO_ROOT}/packages/home-macbook.Brewfile"
+    PACKAGE_MANAGER="brew"
+    SSH_DIR="${REPO_ROOT}/ssh/home"
+    ;;
+  work-macbook)
+    PACKAGE_FILE="${REPO_ROOT}/packages/work-macbook.Brewfile"
+    PACKAGE_MANAGER="brew"
+    SSH_DIR="${REPO_ROOT}/ssh/work"
+    ;;
+  home-desktop)
+    PACKAGE_FILE="${REPO_ROOT}/packages/home-desktop.dnf.txt"
+    PACKAGE_MANAGER="dnf"
+    SSH_DIR="${REPO_ROOT}/ssh/home"
+    ;;
+  *)
+    echo "Usage: $0 <config> [packages|ssh|config|shell]"
+    echo ""
+    echo "Configurations:"
+    echo "  home-macbook   macOS laptop (personal)"
+    echo "  work-macbook   macOS laptop (work)"
+    echo "  home-desktop   Linux desktop (personal)"
+    exit 1
+    ;;
+esac
+
 # --- Functions ---
 
 uninstall_packages() {
   echo "=== Uninstalling packages ==="
-  case "$(uname -s)" in
-    Darwin)
+  case "$PACKAGE_MANAGER" in
+    brew)
       require brew
-      brew bundle cleanup --force --file="${REPO_ROOT}/packages/home.Brewfile"
+      brew bundle cleanup --force --file="$PACKAGE_FILE"
       ;;
-    Linux)
+    dnf)
       require dnf
-      sudo dnf remove -y $(grep -v '^#' "${REPO_ROOT}/packages/home.dnf.txt" | grep -v '^$')
-      ;;
-    *)
-      echo "Error: Unsupported OS '$(uname -s)'."; exit 1
+      sudo dnf remove -y $(grep -v '^#' "$PACKAGE_FILE" | grep -v '^$')
       ;;
   esac
 }
@@ -41,7 +70,7 @@ uninstall_config() {
 uninstall_ssh() {
   echo "=== Unstowing SSH files ==="
   require stow
-  (cd "${REPO_ROOT}/ssh" && stow -D .)
+  (cd "$SSH_DIR" && stow -D .)
   if [ -f ~/.ssh/id_ed25519 ]; then
     echo "=== Removing decrypted SSH private key ==="
     rm ~/.ssh/id_ed25519
@@ -60,7 +89,7 @@ remove_shell() {
 
 # --- Main ---
 
-case "${1:-}" in
+case "$SUBSYSTEM" in
   packages)
     uninstall_packages
     ;;
@@ -80,7 +109,7 @@ case "${1:-}" in
     uninstall_packages
     ;;
   *)
-    echo "Usage: $0 [packages|ssh|config|shell]"
+    echo "Usage: $0 <config> [packages|ssh|config|shell]"
     exit 1
     ;;
 esac

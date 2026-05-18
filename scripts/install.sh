@@ -13,21 +13,50 @@ require() {
   command -v "$1" >/dev/null 2>&1 || { echo "Error: '$1' is not installed."; exit 1; }
 }
 
+# --- Configuration ---
+
+CONFIG="${1:-}"
+SUBSYSTEM="${2:-}"
+
+case "$CONFIG" in
+  home-macbook)
+    PACKAGE_FILE="${REPO_ROOT}/packages/home-macbook.Brewfile"
+    PACKAGE_MANAGER="brew"
+    SSH_DIR="${REPO_ROOT}/ssh/home"
+    ;;
+  work-macbook)
+    PACKAGE_FILE="${REPO_ROOT}/packages/work-macbook.Brewfile"
+    PACKAGE_MANAGER="brew"
+    SSH_DIR="${REPO_ROOT}/ssh/work"
+    ;;
+  home-desktop)
+    PACKAGE_FILE="${REPO_ROOT}/packages/home-desktop.dnf.txt"
+    PACKAGE_MANAGER="dnf"
+    SSH_DIR="${REPO_ROOT}/ssh/home"
+    ;;
+  *)
+    echo "Usage: $0 <config> [packages|ssh|config|shell]"
+    echo ""
+    echo "Configurations:"
+    echo "  home-macbook   macOS laptop (personal)"
+    echo "  work-macbook   macOS laptop (work)"
+    echo "  home-desktop   Linux desktop (personal)"
+    exit 1
+    ;;
+esac
+
 # --- Functions ---
 
 install_packages() {
   echo "=== Installing packages ==="
-  case "$(uname -s)" in
-    Darwin)
+  case "$PACKAGE_MANAGER" in
+    brew)
       require brew
-      brew bundle --file="${REPO_ROOT}/packages/home.Brewfile"
+      brew bundle --file="$PACKAGE_FILE"
       ;;
-    Linux)
+    dnf)
       require dnf
-      sudo dnf install -y $(grep -v '^#' "${REPO_ROOT}/packages/home.dnf.txt" | grep -v '^$')
-      ;;
-    *)
-      echo "Error: Unsupported OS '$(uname -s)'."; exit 1
+      sudo dnf install -y $(grep -v '^#' "$PACKAGE_FILE" | grep -v '^$')
       ;;
   esac
 }
@@ -40,9 +69,14 @@ install_config() {
 
 decrypt_ssh() {
   echo "=== Decrypting SSH private key ==="
+  local age_file="${SSH_DIR}/id_ed25519.age"
+  if [ ! -f "$age_file" ]; then
+    echo "Error: SSH key file not found: $age_file"
+    exit 1
+  fi
   mkdir -p -m 700 ~/.ssh
   require age
-  age -d -o ~/.ssh/id_ed25519 "${REPO_ROOT}/ssh/id_ed25519.age"
+  age -d -o ~/.ssh/id_ed25519 "$age_file"
   chmod 600 ~/.ssh/id_ed25519
 }
 
@@ -50,7 +84,7 @@ install_ssh() {
   decrypt_ssh
   require stow
   echo "=== Stowing SSH files ==="
-  (cd "${REPO_ROOT}/ssh" && stow .)
+  (cd "$SSH_DIR" && stow .)
 }
 
 add_shell() {
@@ -66,7 +100,7 @@ add_shell() {
 
 # --- Main ---
 
-case "${1:-}" in
+case "$SUBSYSTEM" in
   packages)
     install_packages
     ;;
@@ -86,7 +120,7 @@ case "${1:-}" in
     add_shell fish
     ;;
   *)
-    echo "Usage: $0 [--only-packages|--only-ssh|--only-config|--only-shell]"
+    echo "Usage: $0 <config> [packages|ssh|config|shell]"
     exit 1
     ;;
 esac

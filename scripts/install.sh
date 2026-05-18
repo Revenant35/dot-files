@@ -18,6 +18,8 @@ require() {
 CONFIG="${1:-}"
 SUBSYSTEM="${2:-}"
 
+BREW_BASE_FILE="${REPO_ROOT}/packages/base.Brewfile"
+
 case "$CONFIG" in
   home-macbook)
     PACKAGE_FILE="${REPO_ROOT}/packages/home-macbook.Brewfile"
@@ -52,6 +54,7 @@ install_packages() {
   case "$PACKAGE_MANAGER" in
     brew)
       require brew
+      brew bundle --file="$BREW_BASE_FILE"
       brew bundle --file="$PACKAGE_FILE"
       ;;
     dnf)

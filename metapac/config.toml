@@ -1,0 +1,11 @@
+hostname_groups_enabled = true
+
+[hostname_enabled_backends]
+Zachs-MacBook-Pro = ["brew"]
+VUMACBOOK = ["brew"]
+ZACH_DESKTOP = ["dnf"]
+
+[hostname_groups]
+Zachs-MacBook-Pro = ["home-macbook"]
+VUMACBOOK = ["work-macbook"]
+ZACH_DESKTOP = ["home-desktop"]

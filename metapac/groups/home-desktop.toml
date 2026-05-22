@@ -1,0 +1,27 @@
+[dnf]
+packages = [
+  # CLI tools
+  "age",
+  "bat",
+  "eza",
+  "fastfetch",
+  "fd-find",
+  "fish",
+  "fzf",
+  "gh",
+  "git-delta",
+  "htop",
+  "jq",
+  "lazygit",
+  "nodejs",
+  "pnpm",
+  "ripgrep",
+  "starship",
+  "stow",
+  "tealdeer",
+  "tree",
+  "zoxide",
+
+  # Apps
+  "code",
+]

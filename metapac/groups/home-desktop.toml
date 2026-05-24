@@ -3,7 +3,6 @@ packages = [
   # CLI tools
   "age",
   "bat",
-  "chezmoi",
   "eza",
   "fastfetch",
   "fd-find",

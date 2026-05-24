@@ -4,6 +4,7 @@ from lib.logger import logger
 from lib.metapac import metapac_exists, metapac_install, metapac_link
 from lib.rust import cargo_exists, rust_install
 from lib.metapac import metapac_sync
+from lib.stow import stow
 
 
 def install():
@@ -21,6 +22,8 @@ def install():
     metapac_link()
 
     metapac_sync()
+
+    stow()
 
     logger.info("Installation complete!.")
 

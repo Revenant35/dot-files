@@ -2,8 +2,8 @@ import os
 import shutil
 import sys
 from pathlib import Path
-from sys import platform
 
+from .common import Platform, get_platform, get_dotfile_root
 from .logger import logger
 from .rust import cargo_exists
 from .shell import run_shell_command
@@ -11,7 +11,7 @@ from .shell import run_shell_command
 
 def metapac_link():
     """Create a symlink from the platform config directory to the repo's metapac/ dir."""
-    source = _metapac_dir_source()
+    source = get_dotfile_root() / "metapac"
     target = _metapac_dir_target()
 
     if not source.exists():
@@ -106,16 +106,12 @@ def _metapac_cleanup():
     logger.info("Packages cleaned up.")
 
 
-def _metapac_dir_source() -> Path:
-    """Absolute path to the metapac/ directory tracked in this repo."""
-    return Path(__file__).resolve().parents[2] / "metapac"
-
-
 def _metapac_dir_target() -> Path:
     """Platform-specific directory where metapac expects its config."""
-    if platform == "darwin":
+    platform = get_platform()
+    if platform == Platform.MAC:
         return Path.home() / "Library" / "Application Support" / "metapac"
-    elif platform == "win32":
+    elif platform == Platform.WINDOWS:
         roaming = os.environ.get("APPDATA", "")
         return Path(roaming) / "metapac"
     else:  # Linux / other POSIX

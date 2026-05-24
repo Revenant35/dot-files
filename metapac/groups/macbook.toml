@@ -1,12 +1,13 @@
-[dnf]
+[brew]
 packages = [
   # CLI tools
   "age",
   "bat",
   "chezmoi",
+  "docker",
   "eza",
   "fastfetch",
-  "fd-find",
+  "fd",
   "fish",
   "fzf",
   "gh",
@@ -14,7 +15,7 @@ packages = [
   "htop",
   "jq",
   "lazygit",
-  "nodejs",
+  "node",
   "pnpm",
   "ripgrep",
   "starship",
@@ -23,6 +24,17 @@ packages = [
   "tree",
   "zoxide",
 
+  # Fonts
+  "font-jetbrains-mono-nerd-font",
+
   # Apps
-  "code",
+  "docker-desktop",
+  "ghostty",
+  "gimp",
+  "obsidian",
+  "pycharm",
+  "slack",
+  "spotify",
+  "visual-studio-code",
+  "zen",
 ]

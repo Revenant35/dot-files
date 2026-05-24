@@ -10,6 +10,7 @@ from .shell import run_shell_command
 def cargo_exists():
     return shutil.which("cargo") is not None
 
+
 def rust_install():
     logger.info("Installing Rust toolchain...")
 

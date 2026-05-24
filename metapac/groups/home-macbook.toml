@@ -1,43 +1,8 @@
 [brew]
 packages = [
   # CLI tools
-  "age",
-  "bat",
-  "docker",
-  "eza",
-  "fastfetch",
-  "fd",
-  "fish",
-  "fzf",
-  "gh",
-  "git-delta",
-  "htop",
-  "jq",
-  "lazygit",
-  "node",
   "opencode",
-  "pnpm",
-  "ripgrep",
-  "starship",
-  "stow",
-  "tealdeer",
-  "tree",
-  "zoxide",
-
-  # Fonts
-  "font-jetbrains-mono-nerd-font",
 
   # Apps
   "discord",
-  "docker-desktop",
-  "ghostty",
-  "gimp",
-  "obsidian",
-  "postman",
-  "pycharm",
-  "rider",
-  "slack",
-  "spotify",
-  "visual-studio-code",
-  "zen",
 ]

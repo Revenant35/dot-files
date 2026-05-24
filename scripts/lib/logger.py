@@ -23,6 +23,7 @@ class CustomFormatter(logging.Formatter):
         formatter = logging.Formatter(log_fmt)
         return formatter.format(record)
 
+
 logger = logging.getLogger("DotfileInstaller")
 logger.setLevel(logging.DEBUG)
 
@@ -38,4 +39,3 @@ _error_handler.setFormatter(CustomFormatter())
 
 logger.addHandler(_info_handler)
 logger.addHandler(_error_handler)
-

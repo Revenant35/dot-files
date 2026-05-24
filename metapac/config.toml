@@ -6,6 +6,6 @@ VUMACBOOK = ["brew"]
 ZACH_DESKTOP = ["dnf"]
 
 [hostname_groups]
-Zachs-MacBook-Pro = ["home-macbook"]
-VUMACBOOK = ["work-macbook"]
+Zachs-MacBook-Pro = ["macbook", "home-macbook"]
+VUMACBOOK = ["macbook", "work-macbook"]
 ZACH_DESKTOP = ["home-desktop"]

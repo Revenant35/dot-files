@@ -3,6 +3,8 @@
 from lib.logger import logger
 from lib.metapac import metapac_exists, metapac_install, metapac_link
 from lib.rust import cargo_exists, rust_install
+from lib.chezmoi import chezmoi_initialize
+from lib.metapac import metapac_sync
 
 
 def install():
@@ -18,6 +20,10 @@ def install():
         logger.info("metapac already installed... skipping.")
 
     metapac_link()
+
+    metapac_sync()
+
+    chezmoi_initialize()
 
     logger.info("Installation complete!.")
 

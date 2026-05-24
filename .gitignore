@@ -3,3 +3,5 @@
 *~
 **/config.local
 .idea/
+
+**/id_ed25519

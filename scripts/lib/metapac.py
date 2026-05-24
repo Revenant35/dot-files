@@ -2,10 +2,8 @@ import os
 import shutil
 from pathlib import Path
 
-from .common import Platform, get_platform, get_dotfile_root
-from .logger import logger
+from .common import Platform, get_platform, get_dotfile_root, logger, run_shell_command
 from .rust import cargo_exists
-from .shell import run_shell_command
 
 
 def metapac_link():

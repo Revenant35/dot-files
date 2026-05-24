@@ -2,7 +2,7 @@
 
 import sys
 
-from lib.logger import logger
+from lib.common import logger
 from lib.metapac import metapac_sync
 
 

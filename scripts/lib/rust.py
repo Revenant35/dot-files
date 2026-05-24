@@ -2,8 +2,7 @@ import os
 import shutil
 from pathlib import Path
 
-from .logger import logger
-from .shell import run_shell_command
+from .common import logger, run_shell_command
 
 
 def cargo_exists():

@@ -1,6 +1,5 @@
 import os
 import shutil
-import sys
 from pathlib import Path
 
 from .common import Platform, get_platform, get_dotfile_root
@@ -10,17 +9,20 @@ from .shell import run_shell_command
 
 
 def metapac_link():
-    """Create a symlink from the platform config directory to the repo's metapac/ dir."""
+    """Create a symlink from the platform config directory to the repo's metapac/ dir.
+
+    Raises:
+        FileNotFoundError: If the metapac source directory does not exist.
+        RuntimeError: If the target path exists and is not a symlink.
+    """
     source = get_dotfile_root() / "metapac"
     target = _metapac_dir_target()
 
     if not source.exists():
-        logger.error(f"metapac source directory not found: {source}")
-        sys.exit(1)
+        raise FileNotFoundError(f"metapac source directory not found: {source}")
 
     if target.exists() and not target.is_symlink():
-        logger.error(f"metapac target already exists and is not a symlink: {target}")
-        sys.exit(1)
+        raise RuntimeError(f"metapac target already exists and is not a symlink: {target}")
 
     if target.is_symlink() and target.resolve() == source.resolve():
         logger.info("metapac directory already linked... skipping.")
@@ -41,59 +43,53 @@ def metapac_exists():
 
 
 def metapac_install():
+    """Install metapac via cargo.
+
+    Raises:
+        RuntimeError: If cargo is not found or the installation fails.
+    """
     if not cargo_exists():
-        logger.error("cargo not found")
-        sys.exit(1)
+        raise RuntimeError("cargo not found")
 
     if metapac_exists():
         logger.debug("metapac already installed")
         return
 
     logger.info("Installing metapac...")
-
-    try:
-        run_shell_command("cargo install metapac")
-    except (OSError, Exception) as e:
-        logger.error(f"Failed to install metapac: {e}")
-        sys.exit(1)
-
+    run_shell_command("cargo install metapac")
     logger.info("metapac installed.")
     return
 
 
 def metapac_sync():
+    """Sync packages using metapac.
+
+    Raises:
+        RuntimeError: If metapac is not found or the sync fails.
+    """
     if not metapac_exists():
-        logger.error("metapac not found")
-        sys.exit(1)
+        raise RuntimeError("metapac not found")
 
     logger.info("Syncing packages...")
-
-    try:
-        run_shell_command("metapac sync --no-confirm")
-        run_shell_command("metapac clean --no-confirm")
-        _metapac_cleanup()
-    except (OSError, Exception) as e:
-        logger.error(f"Failed to sync packages: {e}")
-        sys.exit(1)
-
+    run_shell_command("metapac sync --no-confirm")
+    run_shell_command("metapac clean --no-confirm")
+    _metapac_cleanup()
     logger.info("Packages synced.")
     return
 
 
 def metapac_update():
+    """Update all packages using metapac.
+
+    Raises:
+        RuntimeError: If metapac is not found or the update fails.
+    """
     if not metapac_exists():
-        logger.error("metapac not found")
-        sys.exit(1)
+        raise RuntimeError("metapac not found")
 
     logger.info("Updating packages...")
-
-    try:
-        run_shell_command("metapac update-all --no-confirm")
-        _metapac_cleanup()
-    except (OSError, Exception) as e:
-        logger.error(f"Failed to update packages: {e}")
-        sys.exit(1)
-
+    run_shell_command("metapac update-all --no-confirm")
+    _metapac_cleanup()
     logger.info("Packages updated.")
     return True
 

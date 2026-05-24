@@ -5,7 +5,6 @@ from enum import Enum
 from pathlib import Path
 from typing import Optional
 
-from .logger import logger
 from .shell import run_shell_command
 
 class Platform(Enum):
@@ -82,15 +81,17 @@ def decrypt_age_file(age_file: Path, output_path: Path, mode: int = 0o600) -> No
         age_file: Path to the .age encrypted source file.
         output_path: Destination path for the decrypted output.
         mode: File permission mode to apply to the output (default: 0o600).
+
+    Raises:
+        FileNotFoundError: If the encrypted source file does not exist.
+        RuntimeError: If 'age' is not installed or the decryption command fails.
     """
 
     if not age_file.exists():
-        logger.error(f"Error: Encrypted file not found: {age_file}")
-        sys.exit(1)
+        raise FileNotFoundError(f"Encrypted file not found: {age_file}")
 
     if shutil.which("age") is None:
-        logger.error("Error: 'age' is not installed or not on PATH")
-        sys.exit(1)
+        raise RuntimeError("'age' is not installed or not on PATH")
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     run_shell_command(f"age -d -o {output_path} {age_file}")

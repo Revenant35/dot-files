@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import sys
+
 from lib.logger import logger
 from lib.metapac import metapac_exists, metapac_install, metapac_link
 from lib.rust import cargo_exists, rust_install
@@ -29,4 +31,8 @@ def install():
 
 
 if __name__ == "__main__":
-    install()
+    try:
+        install()
+    except Exception as e:
+        logger.error(f"Installation failed: {e}")
+        sys.exit(1)

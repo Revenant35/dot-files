@@ -1,6 +1,5 @@
 import os
 import shutil
-import sys
 from pathlib import Path
 
 from .logger import logger
@@ -12,6 +11,11 @@ def cargo_exists():
 
 
 def rust_install():
+    """Download and install the Rust toolchain via rustup.
+
+    Raises:
+        RuntimeError: If cargo is not found on PATH after installation.
+    """
     logger.info("Installing Rust toolchain...")
 
     # Download and run rustup installer noninteractively
@@ -25,5 +29,4 @@ def rust_install():
 
     # Verify installation
     if not cargo_exists():
-        logger.error("cargo was not found after rustup install")
-        sys.exit(1)
+        raise RuntimeError("cargo was not found after rustup install")

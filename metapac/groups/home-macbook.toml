@@ -1,0 +1,8 @@
+[brew]
+packages = [
+  # CLI tools
+  "opencode",
+
+  # Apps
+  "discord",
+]

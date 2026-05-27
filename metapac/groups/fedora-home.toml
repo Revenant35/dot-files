@@ -1,4 +1,7 @@
 [dnf]
+repos = [
+  "copr.fedorainfracloud.org/dejan/lazygit",
+]
 packages = [
   # CLI tools
   "age",
@@ -25,18 +28,18 @@ packages = [
 
 [flatpak]
 repos = [
-  { name = "system:flathub", options = { url = "https://dl.flathub.org/repo/" } },
+  { name = "user:flathub", options = { url = "https://dl.flathub.org/repo/" } },
 ]
 packages = [
   # Apps
-  { name = "system:com.visualstudio.code", options = { remote = "flathub" } },
-  { name = "system:app.zen_browser.zen", options = { remote = "flathub" } },
-  { name = "system:org.mozilla.firefox", options = { remote = "flathub" } },
-  { name = "system:com.jetbrains.WebStorm", options = { remote = "flathub" } },
-  { name = "system:com.spotify.Client", options = { remote = "flathub" } },
-  { name = "system:com.valvesoftware.Steam", options = { remote = "flathub" } },
-  { name = "system:com.discordapp.Discord", options = { remote = "flathub" } },
-  { name = "system:org.videolan.VLC", options = { remote = "flathub" } },
-  { name = "system:com.obsproject.Studio", options = { remote = "flathub" } },
-  { name = "system:md.obsidian.Obsidian", options = { remote = "flathub" } },
+  { name = "user:com.visualstudio.code", options = { remote = "flathub" } },
+  { name = "user:app.zen_browser.zen", options = { remote = "flathub" } },
+  { name = "user:org.mozilla.firefox", options = { remote = "flathub" } },
+  { name = "user:com.jetbrains.WebStorm", options = { remote = "flathub" } },
+  { name = "user:com.spotify.Client", options = { remote = "flathub" } },
+  { name = "user:com.valvesoftware.Steam", options = { remote = "flathub" } },
+  { name = "user:com.discordapp.Discord", options = { remote = "flathub" } },
+  { name = "user:org.videolan.VLC", options = { remote = "flathub" } },
+  { name = "user:com.obsproject.Studio", options = { remote = "flathub" } },
+  { name = "user:md.obsidian.Obsidian", options = { remote = "flathub" } },
 ]

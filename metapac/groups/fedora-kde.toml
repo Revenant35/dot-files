@@ -358,7 +358,6 @@ dnf = { repos = [
   "sssd-common",
   "sssd-kcm",
   "sssd-proxy",
-  "steam",
   "subversion",
   "sudo",
   "symlinks",

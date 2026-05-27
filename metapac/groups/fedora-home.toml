@@ -2,6 +2,7 @@
 repos = [
   "copr.fedorainfracloud.org/dejan/lazygit",
   "copr.fedorainfracloud.org/atim/starship",
+  "copr.fedorainfracloud.org/scottames/ghostty",
 ]
 packages = [
   # CLI tools
@@ -13,6 +14,7 @@ packages = [
   "fish",
   "fzf",
   "gh",
+  "ghostty",
   "git-delta",
   "htop",
   "jq",

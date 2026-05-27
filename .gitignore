@@ -5,3 +5,6 @@
 .idea/
 
 **/id_ed25519
+
+__pycache__/
+*.pyc

@@ -1,0 +1,18 @@
+[brew]
+packages = [
+  "steam",
+  "discord",
+  "obs",
+]
+
+[dnf]
+packages = [
+  "steam-devices",
+]
+
+[flatpak]
+packages = [
+  { name = "user:com.valvesoftware.Steam", options = { remote = "flathub" } },
+  { name = "user:com.discordapp.Discord", options = { remote = "flathub" } },
+  { name = "user:com.obsproject.Studio", options = { remote = "flathub" } },
+]

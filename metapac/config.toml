@@ -6,6 +6,6 @@ VUMACBOOK = ["brew"]
 fedora = ["dnf", "pnpm", "flatpak"]
 
 [hostname_groups]
-Zachs-MacBook-Pro = ["macbook", "home-macbook"]
+Zachs-MacBook-Pro = ["macbook", "home-macbook", "gaming"]
 VUMACBOOK = ["macbook", "work-macbook"]
-fedora = ["fedora-kde", "fedora-home"]
+fedora = ["fedora-kde", "fedora-home", "gaming"]

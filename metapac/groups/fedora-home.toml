@@ -54,9 +54,6 @@ packages = [
   { name = "user:org.mozilla.firefox", options = { remote = "flathub" } },
   { name = "user:com.jetbrains.WebStorm", options = { remote = "flathub" } },
   { name = "user:com.spotify.Client", options = { remote = "flathub" } },
-  { name = "user:com.valvesoftware.Steam", options = { remote = "flathub" } },
-  { name = "user:com.discordapp.Discord", options = { remote = "flathub" } },
   { name = "user:org.videolan.VLC", options = { remote = "flathub" } },
-  { name = "user:com.obsproject.Studio", options = { remote = "flathub" } },
   { name = "user:md.obsidian.Obsidian", options = { remote = "flathub" } },
 ]

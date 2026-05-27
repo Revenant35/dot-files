@@ -31,7 +31,16 @@ packages = [
 
 [pnpm]
 packages = [
-  "opencode-ai",
+  {
+    name = "opencode-ai",
+    hooks = {
+      after_install = [
+        "sh",
+        "-c",
+        "node $(pnpm root -g)/opencode-ai/postinstall.mjs",
+      ]
+    }
+  },
 ]
 
 [flatpak]

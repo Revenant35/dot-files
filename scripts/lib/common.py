@@ -42,7 +42,7 @@ class CustomFormatter(logging.Formatter):
 
 
 WORK_HOSTNAMES = ["VU-D4RW65L6QG"]
-HOME_HOSTNAMES = ["Zachs-MacBook-Pro"]
+HOME_HOSTNAMES = ["Zachs-MacBook-Pro", "fedora"]
 
 logger = logging.getLogger("DotfileInstaller")
 logger.setLevel(logging.DEBUG)

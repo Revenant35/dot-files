@@ -1,6 +1,7 @@
 [dnf]
 repos = [
   "copr.fedorainfracloud.org/dejan/lazygit",
+  "copr.fedorainfracloud.org/atim/starship",
 ]
 packages = [
   # CLI tools

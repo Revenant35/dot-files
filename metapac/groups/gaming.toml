@@ -15,4 +15,5 @@ packages = [
 packages = [
   { name = "user:com.discordapp.Discord", options = { remote = "flathub" } },
   { name = "user:com.obsproject.Studio", options = { remote = "flathub" } },
+  { name = "user:org.polymc.PolyMC", options = { remote = "flathub" } },
 ]

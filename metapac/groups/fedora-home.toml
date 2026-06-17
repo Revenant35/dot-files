@@ -35,7 +35,7 @@ packages = [
   {
     name = "opencode-ai",
     hooks = {
-      after_install = [
+      after_sync = [
         "sh",
         "-c",
         "node $(pnpm root -g)/opencode-ai/postinstall.mjs",

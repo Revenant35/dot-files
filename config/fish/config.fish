@@ -46,7 +46,6 @@ if status is-interactive
   alias ff=fastfetch
 
   # -- pnpm --
-  alias npm=pnpm
   alias nx="pnpm nx"
 
   # -- age --

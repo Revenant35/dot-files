@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-import shutil
-import subprocess
+import sys
 from pathlib import Path
 
 from _common import (
@@ -11,6 +10,7 @@ from _common import (
     read_package_list,
     require,
     run,
+    update_etc_shells,
 )
 
 
@@ -46,7 +46,7 @@ def decrypt_ssh(cfg):
     age_file = cfg["ssh_dir"] / "id_ed25519.age"
     if not age_file.is_file():
         print(f"Error: SSH key file not found: {age_file}")
-        raise SystemExit(1)
+        sys.exit(1)
     ssh_dir = Path.home() / ".ssh"
     ssh_dir.mkdir(mode=0o700, exist_ok=True)
     ssh_dir.chmod(0o700)
@@ -58,24 +58,15 @@ def decrypt_ssh(cfg):
 
 def install_ssh(cfg):
     decrypt_ssh(cfg)
-    require("stow")
     print("=== Stowing SSH files ===")
+    require("stow")
     run(["stow", "."], cwd=cfg["ssh_dir"])
 
 
 def add_shell(shell):
     print(f"=== Adding {shell} to shells ===")
-    require(shell)
-    shell_path = shutil.which(shell)
-    shells_file = Path("/etc/shells")
-    existing = shells_file.read_text().splitlines() if shells_file.exists() else []
-    if shell_path not in existing:
-        subprocess.run(
-            ["sudo", "tee", "-a", str(shells_file)],
-            input=shell_path + "\n",
-            text=True,
-            check=True,
-        )
+    shell_path = require(shell)
+    update_etc_shells(shell_path, present=True)
     run(["chsh", "-s", shell_path])
 
 
@@ -88,8 +79,7 @@ def main():
         "ssh": lambda: install_ssh(cfg),
         "shell": lambda: add_shell("fish"),
     }
-    order = ["packages", "config", "git", "ssh", "shell"]
-    dispatch(subsystem, actions, order)
+    dispatch(subsystem, actions)
     print("=== Done ===")
 
 

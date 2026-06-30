@@ -44,13 +44,36 @@ def usage(code=1):
 
 
 def require(cmd):
-    if shutil.which(cmd) is None:
+    path = shutil.which(cmd)
+    if path is None:
         print(f"Error: '{cmd}' is not installed.")
         sys.exit(1)
+    return path
 
 
 def run(args, **kwargs):
     subprocess.run(args, check=True, **kwargs)
+
+
+def update_etc_shells(shell_path, *, present):
+    shells_file = Path("/etc/shells")
+    try:
+        lines = shells_file.read_text().splitlines()
+    except FileNotFoundError:
+        lines = []
+    has = shell_path in lines
+    if present and not has:
+        new = "\n".join(lines + [shell_path]) + "\n"
+    elif not present and has:
+        new = "\n".join(l for l in lines if l != shell_path) + "\n"
+    else:
+        return
+    run(
+        ["sudo", "tee", str(shells_file)],
+        input=new,
+        text=True,
+        stdout=subprocess.DEVNULL,
+    )
 
 
 def read_package_list(path: Path):
@@ -72,12 +95,11 @@ def parse_args():
     return cfg, subsystem
 
 
-def dispatch(subsystem, actions, order):
+def dispatch(subsystem, actions):
     if subsystem == "":
-        for name in order:
-            actions[name]()
+        for action in actions.values():
+            action()
     elif subsystem in actions:
         actions[subsystem]()
     else:
-        print(f"Usage: {sys.argv[0]} <config> [{'|'.join(SUBSYSTEMS)}]")
-        sys.exit(1)
+        usage()

@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import shutil
-import subprocess
 from pathlib import Path
 
 from _common import (
@@ -10,6 +9,7 @@ from _common import (
     read_package_list,
     require,
     run,
+    update_etc_shells,
 )
 
 
@@ -36,30 +36,18 @@ def uninstall_git():
 
 
 def uninstall_ssh(cfg):
-    require("stow")
     print("=== Unstowing SSH files ===")
+    require("stow")
     run(["stow", "-D", "."], cwd=cfg["ssh_dir"])
-    key = Path.home() / ".ssh" / "id_ed25519"
-    if key.is_file():
-        print("=== Removing decrypted SSH private key ===")
-        key.unlink()
+    print("=== Removing decrypted SSH private key ===")
+    (Path.home() / ".ssh" / "id_ed25519").unlink(missing_ok=True)
 
 
 def remove_shell(shell):
     print(f"=== Removing {shell} from shells ===")
     shell_path = shutil.which(shell)
-    shells_file = Path("/etc/shells")
-    if shell_path and shells_file.exists():
-        lines = shells_file.read_text().splitlines()
-        if shell_path in lines:
-            new_content = "\n".join(l for l in lines if l != shell_path) + "\n"
-            subprocess.run(
-                ["sudo", "tee", str(shells_file)],
-                input=new_content,
-                text=True,
-                check=True,
-                stdout=subprocess.DEVNULL,
-            )
+    if shell_path:
+        update_etc_shells(shell_path, present=False)
     run(["chsh", "-s", "/bin/zsh"])
 
 
@@ -72,8 +60,7 @@ def main():
         "config": uninstall_config,
         "packages": lambda: uninstall_packages(cfg),
     }
-    order = ["shell", "ssh", "git", "config", "packages"]
-    dispatch(subsystem, actions, order)
+    dispatch(subsystem, actions)
     print("=== Done ===")
 
 

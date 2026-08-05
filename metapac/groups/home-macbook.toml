@@ -1,6 +1,0 @@
-[brew]
-packages = [
-  # CLI tools
-  "opencode",
-
-]

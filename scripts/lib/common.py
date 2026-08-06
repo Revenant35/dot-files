@@ -1,6 +1,5 @@
 import logging
 import shutil
-import socket
 import subprocess
 import sys
 from enum import Enum
@@ -12,11 +11,6 @@ class Platform(Enum):
     MAC = "darwin"
     WINDOWS = "win32"
     LINUX = "linux"
-
-
-class Environment(Enum):
-    WORK = "work"
-    HOME = "home"
 
 
 class CustomFormatter(logging.Formatter):
@@ -41,9 +35,6 @@ class CustomFormatter(logging.Formatter):
         return formatter.format(record)
 
 
-WORK_HOSTNAMES = ["VU-D4RW65L6QG"]
-HOME_HOSTNAMES = ["Zachs-MacBook-Pro", "fedora"]
-
 logger = logging.getLogger("DotfileInstaller")
 logger.setLevel(logging.DEBUG)
 
@@ -59,30 +50,6 @@ _error_handler.setFormatter(CustomFormatter())
 
 logger.addHandler(_info_handler)
 logger.addHandler(_error_handler)
-
-
-def get_hostname() -> str:
-    """Returns the current machine's hostname."""
-    return socket.gethostname()
-
-
-def is_work() -> bool:
-    """Returns True if the current machine is a work machine."""
-    return get_hostname() in WORK_HOSTNAMES
-
-
-def is_home() -> bool:
-    """Returns True if the current machine is a home machine."""
-    return get_hostname() in HOME_HOSTNAMES
-
-
-def get_environment() -> Optional[Environment]:
-    """Returns the current Environment, or None if unrecognized."""
-    if is_work():
-        return Environment.WORK
-    if is_home():
-        return Environment.HOME
-    return None
 
 
 def get_platform() -> Optional[Platform]:
@@ -122,12 +89,7 @@ def decrypt_ssh_key() -> None:
     """
     logger.info("Decrypting SSH key...")
 
-    env = get_environment()
-
-    if env is None:
-        raise RuntimeError("Unknown environment, cannot determine config directories to stow")
-
-    ssh_dir = get_dotfile_root() / "ssh" / env.value
+    ssh_dir = get_dotfile_root() / "ssh"
     age_file = ssh_dir / "id_ed25519.age"
     decrypted_key = Path.home() / ".ssh" / "id_ed25519"
 
@@ -166,25 +128,19 @@ def run_shell_command(command):
 
 
 def stow_config():
-    """Stow all config directories for the current environment.
+    """Stow all config directories.
 
     Raises:
-        RuntimeError: If the environment is unrecognized or stow is not installed.
+        RuntimeError: If stow is not installed.
         FileNotFoundError: If a stow source directory does not exist.
     """
-    env = get_environment()
-
-    if env is None:
-        raise RuntimeError("Unknown environment, cannot determine config directories to stow")
-
     if not shutil.which("stow"):
         raise RuntimeError("stow not found")
 
     logger.info("Stowing directories...")
 
-    _stow_dir(get_dotfile_root() / "config" / "common")
-    _stow_dir(get_dotfile_root() / "config" / env.value)
-    _stow_dir(get_dotfile_root() / "ssh" / env.value)
+    _stow_dir(get_dotfile_root() / "config")
+    _stow_dir(get_dotfile_root() / "ssh")
 
     logger.info("Directories stowed.")
 

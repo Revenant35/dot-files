@@ -1,8 +1,0 @@
-Host github.com
-  AddKeysToAgent yes
-  IdentityFile ~/.ssh/id_ed25519
-
-Host ssh.dev.azure.com
-  IdentityFile ~/.ssh/id_rsa
-  IdentitiesOnly yes
-

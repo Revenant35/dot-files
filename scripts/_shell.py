@@ -7,8 +7,6 @@ on the system PATH.
 import subprocess
 import shutil
 
-from _logging import logger
-
 
 def run_shell_command(command: str) -> None:
     """Run a shell command, raising RuntimeError on failure.
@@ -19,8 +17,6 @@ def run_shell_command(command: str) -> None:
     Raises:
         RuntimeError: If the command exits with a non-zero status or an OS error occurs.
     """
-    logger.info(f"Running: {command}")
-
     try:
         subprocess.run(command, shell=True, check=True)
     except (OSError, subprocess.CalledProcessError) as exception:

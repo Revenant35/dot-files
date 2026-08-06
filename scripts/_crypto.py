@@ -24,8 +24,6 @@ def age_decrypt(src: Path, dest: Path) -> None:
         RuntimeError: If decryption fails and the user chooses not to retry.
         AssertionError: If the ``age`` command is not available on PATH.
     """
-    logger.info(f"Decrypting {src} -> {dest}")
-
     if not src.exists():
         raise FileNotFoundError(f"Encrypted file not found: {src}")
 
@@ -43,5 +41,3 @@ def age_decrypt(src: Path, dest: Path) -> None:
                 raise
 
     dest.chmod(0o600)
-
-    logger.info(f"Decrypted {src} -> {dest}")

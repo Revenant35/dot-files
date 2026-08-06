@@ -4,14 +4,14 @@ import argparse
 
 from _logging import logger
 from _brew import brew_sync
-from _stow import stow
+from _stow import stow_directories
 from _ssh import decrypt_ssh_key
 
 
 def sync():
     logger.info("Installing dotfiles")
     brew_sync()
-    stow()
+    stow_directories()
     decrypt_ssh_key()
     logger.info("Installation complete!.")
 
@@ -29,7 +29,7 @@ if __name__ == "__main__":
     if args.command == "brew":
         brew_sync()
     elif args.command == "stow":
-        stow()
+        stow_directories()
     elif args.command == "ssh":
         decrypt_ssh_key()
     else:

@@ -10,7 +10,24 @@ from _shell import run_shell_command, assert_command_exists
 from _common import get_dotfile_root
 
 
-def stow() -> None:
+def _stow(src: Path, dest: Path) -> None:
+    if not src.exists():
+        raise FileNotFoundError(f"Stow source directory not found: {src}")
+
+    if not src.is_dir():
+        raise NotADirectoryError(f"Stow source is not a directory: {src}")
+
+    if dest.exists() and not dest.is_dir():
+        raise NotADirectoryError(f"Stow destination is not a directory: {dest}")
+
+    if not dest.exists():
+        dest.mkdir(parents=True, exist_ok=True)
+
+    logger.info(f"Stowing {src} -> {dest}")
+    run_shell_command(f"stow --dir={src} --target={dest} .")
+
+
+def stow_directories() -> None:
     """Stow all config directories into the home directory.
 
     Raises:
@@ -21,18 +38,10 @@ def stow() -> None:
 
     root = get_dotfile_root()
     home = Path.home()
-    directories = [
-        root / "config",
-        root / "ssh",
-    ]
 
     logger.info("Stowing config directories")
 
-    for directory in directories:
-        if not directory.exists():
-            raise FileNotFoundError(f"Stow source directory not found: {directory}")
+    _stow(root / "config", home / ".config")
+    _stow(root / "ssh", home / ".ssh")
 
-        logger.info(f"Stowing {directory} -> {home}")
-        run_shell_command(f"stow --dir={directory} --target={home} .")
-
-    logger.info("Config directories stowed")
+    logger.info("Directories stowed")

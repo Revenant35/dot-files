@@ -13,8 +13,10 @@ brew 'act'            # Run GitHub Actions locally
 brew 'age'            # Modern encryption tool
 brew 'bat'            # Output highlighting (better cat)
 brew 'curl'           # HTTP client
-brew 'docker'         # Container engine (CLI)
+brew 'duf'            # Disk usage/free utility (better df)
+brew 'dust'           # Directory disk usage viewer (better du)
 brew 'eza'            # Listing files with info (better ls)
+brew 'exiftool'       # Read, write and modify exif data
 brew 'fastfetch'      # System info / neofetch alternative
 brew 'fd'             # Fast find alternative
 brew 'fish'           # User-friendly shell
@@ -28,17 +30,14 @@ brew 'mise'           # Runtime version manager (node, python, etc.)
 brew 'node'           # Node.js
 brew 'opencode'       # AI coding assistant
 brew 'pnpm'           # Fast, disk-efficient package manager
-brew 'uv'             # Fast Python package and project manager
+brew 'rclone'         # Manage cloud storage
 brew 'ripgrep'        # Searching within files (better grep)
+brew 'speedtest-cli'  # Command line speed test utility
 brew 'starship'       # Cross-shell prompt
 brew 'stow'           # Symlink manager for dotfiles
 brew 'tealdeer'       # Fast tldr client (community man pages)
-brew 'duf'            # Disk usage/free utility (better df)
-brew 'dust'           # Directory disk usage viewer (better du)
-brew 'exiftool'       # Read, write and modify exif data
-brew 'rclone'         # Manage cloud storage
-brew 'speedtest-cli'  # Command line speed test utility
 brew 'tree'           # Directory listings as tree structure
+brew 'uv'             # Fast Python package and project manager
 brew 'wget'           # File downloader
 brew 'zoxide'         # Auto-learning navigation (better cd)
 
@@ -47,11 +46,13 @@ brew 'zoxide'         # Auto-learning navigation (better cd)
 #############################################################
 
 cask 'alt-tab'                  # Better alt-tab window switcher
-cask 'docker-desktop'           # Docker GUI
+cask 'discord'                  # Voice and text chat
 cask 'ghostty'                  # Terminal emulator
 cask 'gimp'                     # Photo editor
 cask 'handbrake-app'            # Video transcoder
 cask 'hiddenbar'                # Hide / show menubar icons
+cask 'iina'                     # Media player
+cask 'jellyfin'                 # Media server client
 cask 'keka'                     # File archiver and extractor
 cask 'obs'                      # Screen recording and streaming
 cask 'obsidian'                 # Knowledge base / notes
@@ -61,8 +62,8 @@ cask 'shottr'                   # Better screenshot utility
 cask 'slack'                    # Team messaging
 cask 'spotify'                  # Music streaming
 cask 'stats'                    # System resource usage in menubar
+cask 'steam'                    # Gaming platform
 cask 'visual-studio-code'       # Code editor
-cask 'vlc'                      # Media player
 cask 'zen'                      # Zen browser
 
 #############################################################

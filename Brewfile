@@ -13,6 +13,7 @@ brew 'act'            # Run GitHub Actions locally
 brew 'age'            # Modern encryption tool
 brew 'bat'            # Output highlighting (better cat)
 brew 'curl'           # HTTP client
+brew 'docker'         # Container platform CLI
 brew 'duf'            # Disk usage/free utility (better df)
 brew 'dust'           # Directory disk usage viewer (better du)
 brew 'eza'            # Listing files with info (better ls)
@@ -47,6 +48,7 @@ brew 'zoxide'         # Auto-learning navigation (better cd)
 
 cask 'alt-tab'                  # Better alt-tab window switcher
 cask 'discord'                  # Voice and text chat
+cask 'docker-desktop'           # Docker GUI and container management
 cask 'ghostty'                  # Terminal emulator
 cask 'gimp'                     # Photo editor
 cask 'handbrake-app'            # Video transcoder

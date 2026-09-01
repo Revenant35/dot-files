@@ -4,6 +4,12 @@
 # Usage: brew bundle --file ~/Brewfile                      #
 #############################################################
 
+#############################################################
+# Taps                                                      #
+#############################################################
+
+tap 'hashicorp/tap', trusted: true
+tap 'terraform-linters/tap', trusted: true
 
 #############################################################
 # CLI Tools                                                 #
@@ -37,6 +43,8 @@ brew 'speedtest-cli'  # Command line speed test utility
 brew 'starship'       # Cross-shell prompt
 brew 'stow'           # Symlink manager for dotfiles
 brew 'tealdeer'       # Fast tldr client (community man pages)
+brew 'terraform'      # Infrastructure as code tool
+brew 'tfsec'          # Terraform security scanner
 brew 'tree'           # Directory listings as tree structure
 brew 'uv'             # Fast Python package and project manager
 brew 'wget'           # File downloader
@@ -65,6 +73,7 @@ cask 'slack'                    # Team messaging
 cask 'spotify'                  # Music streaming
 cask 'stats'                    # System resource usage in menubar
 cask 'steam'                    # Gaming platform
+cask 'terraform-linters/tap/tflint'         # Terraform linter
 cask 'visual-studio-code'       # Code editor
 cask 'zen'                      # Zen browser
 

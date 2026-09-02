@@ -17,6 +17,7 @@ tap 'terraform-linters/tap', trusted: true
 
 brew 'act'            # Run GitHub Actions locally
 brew 'age'            # Modern encryption tool
+brew 'awscli'         # AWS CLI
 brew 'bat'            # Output highlighting (better cat)
 brew 'curl'           # HTTP client
 brew 'docker'         # Container platform CLI
@@ -64,6 +65,7 @@ cask 'hiddenbar'                # Hide / show menubar icons
 cask 'iina'                     # Media player
 cask 'jellyfin'                 # Media server client
 cask 'keka'                     # File archiver and extractor
+cask 'microsoft-teams'          # Microsoft teams
 cask 'obs'                      # Screen recording and streaming
 cask 'obsidian'                 # Knowledge base / notes
 cask 'pycharm'                  # Python IDE
